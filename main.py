@@ -1,8 +1,8 @@
 import time
 import bcrypt
-from base import bd
+from DATA import bd
 from menus import afficher_menu, accueil, quitter
-from services import gestion_eleves, gestion_professeurs, gestion_utilisateurs
+from Services import gestion_eleves, gestion_professeurs, gestion_utilisateurs
 
 # Fonction pour récupérer un utilisateur depuis la base de données
 def recuperer_utilisateur(identifiant):
