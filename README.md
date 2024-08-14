@@ -11,3 +11,4 @@ Installation:
 `python DATA/bd.py`
 ## 4-Lancer l'application
 `python main.py`
+## NB: La Base de donnée est etab_bd
