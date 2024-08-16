@@ -23,7 +23,7 @@ while True:
     mot_de_passe = input("\033[0;37mEntrez votre mot de passe : \033[0m")
     
     utilisateur_data = recuperer_utilisateur(identifiant)
-    # test reussi
+    # test effectué avec succes
     if utilisateur_data and bcrypt.checkpw(mot_de_passe.encode('utf-8'), utilisateur_data[1].encode('utf-8')):  # Vérifiez le mot de passe
         print("\033[0;92mAuthentification réussie !!\033[0m")
         time.sleep(0.6)
