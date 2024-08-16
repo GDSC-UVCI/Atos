@@ -1,20 +1,25 @@
 import mysql.connector
 
-def ajouter_eleve(curseur, date_naissance, ville, prenom, nom, telephone, classe, matricule):
-    """Ajoute un élève à la base de données."""
-    query = ("INSERT INTO eleves (date_naissance, ville, prenom, nom, telephone, classe, matricule) "
-             "VALUES (%s, %s, %s, %s, %s, %s, %s)")
-    curseur.execute(query, (date_naissance, ville, prenom, nom, telephone, classe, matricule))
+# In `DATA/req_eleve.py`
 
-def modifier_eleve(curseur, matricule, nouveau_telephone, nouvelle_classe):
-    """Modifie les informations d'un élève dans la base de données."""
-    query = ("UPDATE eleves SET telephone = %s, classe = %s WHERE matricule = %s")
-    curseur.execute(query, (nouveau_telephone, nouvelle_classe, matricule))
+def ajouter_eleve_db(curseur, eleve):
+    query = """
+    INSERT INTO eleves (date_naissance, ville, prenom, nom, telephone, classe, matricule)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+    curseur.execute(query, (eleve.get_date_naissance, eleve.get_ville, eleve.get_prenom, eleve.get_nom, eleve.get_telephone, eleve.get_classe, eleve.get_matricule))
 
-def supprimer_eleve(curseur, matricule):
-    """Supprime un élève de la base de données."""
+def modifier_eleve_db(curseur, eleve):
+    query = """
+    UPDATE eleves
+    SET date_naissance = %s, ville = %s, prenom = %s, nom = %s, telephone = %s, classe = %s
+    WHERE matricule = %s
+    """
+    curseur.execute(query, (eleve.get_date_naissance, eleve.get_ville, eleve.get_prenom, eleve.get_nom, eleve.get_telephone, eleve.get_classe, eleve.get_matricule))
+
+def supprimer_eleve_db(curseur, identifiant):
     query = "DELETE FROM eleves WHERE matricule = %s"
-    curseur.execute(query, (matricule,))
+    curseur.execute(query, (identifiant,))
 
 def lister_eleves(curseur):
     """Liste tous les élèves de la base de données."""

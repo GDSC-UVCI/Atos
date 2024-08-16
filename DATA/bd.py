@@ -33,37 +33,22 @@ def create_database_and_tables(curseur):
         )
         """,
         """
-        CREATE TABLE IF NOT EXISTS personnes (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            date_naissance DATE NOT NULL,
-            ville VARCHAR(100) NOT NULL,
-            prenom VARCHAR(50) NOT NULL,
-            nom VARCHAR(50) NOT NULL,
-            telephone VARCHAR(15) NOT NULL
-        )
-        """,
-        """
         CREATE TABLE IF NOT EXISTS eleves (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            id_personne INT,
             classe VARCHAR(50),
-            matricule VARCHAR(50) UNIQUE,
-            FOREIGN KEY (id_personne) REFERENCES personnes(id)
+            matricule VARCHAR(50) UNIQUE
         )
         """,
         """
         CREATE TABLE IF NOT EXISTS professeurs (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            id_personne INT,
             vacant BOOLEAN,
             matiere_enseigne VARCHAR(100),
             prochain_cours VARCHAR(100),
-            sujet_prochaine_reunion VARCHAR(100),
-            FOREIGN KEY (id_personne) REFERENCES personnes(id)
+            sujet_prochaine_reunion VARCHAR(100)
         )
         """
     ]
-
     for table in tables:
         curseur.execute(table)
 

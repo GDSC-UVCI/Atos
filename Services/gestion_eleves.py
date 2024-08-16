@@ -11,9 +11,8 @@ def ajouterEleve():
     classe = input("Entrez la classe : ")
     matricule = input("Entrez le matricule : ")
 
-    eleve = Eleve(dateNaissance, ville, prenom, nom, telephone, classe, matricule)
-    Eleve.ajouter(eleve)
-    print(f"Élève {prenom} {nom} ajouté avec succès.")
+    message = Eleve.ajouter(dateNaissance, ville, prenom, nom, telephone, classe, matricule)
+    print(message)
 
 def listerEleves():
     eleves = Eleve.obtenirEleve()

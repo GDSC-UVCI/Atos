@@ -1,5 +1,10 @@
+from mysql.connector import connect
+from sqlalchemy.engine import connection_memoize
+
 from Models.personne import Personne
 from Models.ICrudEleve import ICRUDEleve
+from DATA.req_eleve import ajouter_eleve_db, modifier_eleve_db, supprimer_eleve_db
+from DATA.bd import create_connection
 
 class Eleve(Personne, ICRUDEleve):
     """
@@ -11,6 +16,7 @@ class Eleve(Personne, ICRUDEleve):
         super().__init__(dateNaissance, ville, prenom, nom, telephone)
         self.__classe = classe
         self.__matricule = matricule
+        Eleve.__eleves.append(self)
 
     def __str__(self):
         return (f"Eleve n° {self.get_id} : {self.get_nom} {self.get_prenom}, "
@@ -35,8 +41,23 @@ class Eleve(Personne, ICRUDEleve):
     # Implémentation des méthodes CRUD
     # Ajouter un élève
     @staticmethod
-    def ajouter(eleve):
-        Eleve.__eleves.append(eleve)
+    def ajouter(cls, dateNaissance, ville, prenom, nom, telephone, classe, matricule):
+        nouvel_eleve = cls(dateNaissance, ville, prenom, nom, telephone, classe, matricule)
+        connection = create_connection()
+        if create_connection() and connection.is_connected():
+            try:
+                curseur = connection.cursor()
+                ajouter_eleve_db(curseur, dateNaissance)
+                connection.commit()
+                print("Elève ajouté avec succès.")
+            except Exception as e:
+                print(f"Erreur lors de l'ajout de l'élève: {e}")
+                connection.rollback()
+            finally:
+                curseur.close()
+                connection.close()
+
+
 
     # Modifier un élève
     @staticmethod

@@ -15,7 +15,6 @@ def recuperer_utilisateur(identifiant):
         connection.close()
         return utilisateur
     return None
-
 debut = time.time() 
 
 accueil("BIENVENUE DANS L'APPLICATION ETAB v1.3")
@@ -49,7 +48,7 @@ while True:
                     gestion_utilisateurs.gestionUtilisateurs()
                 case 0:
                     quitter(debut)     
-                    break               
+                    break
                 case _:
                     print("\033[0;93mOption invalide, veuillez réessayer !!\033[0m")
                     time.sleep(0.5)
